@@ -1,7 +1,11 @@
+import 'package:app/src/navigation/navigation.dart';
 import 'package:app/src/ui/widget/menu_button.dart';
 import 'package:app/src/utils/screen_padding.dart';
 import 'package:app/src/utils/title_bar.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+
+import '../../utils/snack_bar.dart';
 
 class Signin extends StatefulWidget {
   const Signin({super.key});
@@ -64,7 +68,24 @@ class _SigninState extends State<Signin> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          if (!_formaKey.currentState!.validate()) {
+                            return;
+                          }
+                          String id = _idController.text;
+                          String password = _passwordController.text;
+                          await authBloc.signin(id, password);
+                          if (!authBloc.user) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(failSnackbar('Sign In Fail'));
+                            return;
+                          }
+                          // navigation pushNamedAndRemove('/', (route) => false);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(successSnackbar('Sign In Success'));
+                          Navigator.of(context)
+                              .pushNamedAndRemoveUntil('/', ((route) => false));
+                        },
                         child: const Text('Sign In'),
                       ),
                       const MenuButton(

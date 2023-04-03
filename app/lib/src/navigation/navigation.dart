@@ -1,6 +1,7 @@
 import 'package:app/src/ui/screens/Home.dart';
 import 'package:app/src/ui/screens/signin.dart';
 import 'package:app/src/ui/screens/signup.dart';
+import 'package:app/src/utils/title_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../bloc/auth_bloc.dart';
@@ -20,6 +21,10 @@ class _NavigationState extends State<Navigation> {
     // TODO: implement initState
     super.initState();
     authBloc = AuthBloc();
+    // init
+    authBloc.init();
+    // auto
+    authBloc.auto();
   }
 
   @override
@@ -37,6 +42,10 @@ class _NavigationState extends State<Navigation> {
         '/': (context) => const Home(),
         '/signin': (context) => const Signin(),
         '/signup': (context) => const Signup(),
+        '/setting': (context) => Scaffold(
+              appBar: titleBar(),
+              body: const Placeholder(),
+            ),
       },
     );
   }

@@ -94,7 +94,7 @@ class _SignupState extends State<Signup> {
                             }
                           }
                         },
-                        child: const Text('Sign In'),
+                        child: const Text('Sign Up'),
                       ),
                     ],
                   ),

@@ -1,6 +1,6 @@
 import User from "@/models/User";
 import { IUser } from "@/types/types";
-import { genSalt, hash } from "bcrypt";
+import { compare, genSalt, hash } from "bcrypt";
 
 const userService = {
     checkDuplicatedID: async (id: string): Promise<void> => {
@@ -26,9 +26,29 @@ const userService = {
             password: hashed
         };
         await User.signup(user);
+    },
+    findUserById: async (id: string): Promise<IUser> => {
+        if (!id) {
+            throw new Error(`ID IS INVALID`);
+        }
+        const user: IUser = await User.findUserById(id);
+        if (!user) {
+            throw new Error('USER NOT FOUND')
+        }
+        return user;
+    },
+    checkPassword: async (userPassword: string, dbPassword: string): Promise<void> => {
+        if (!userPassword) {
+            throw new Error('PASSWORD IS INVALID')
+        }
+        if (!dbPassword) {
+            throw new Error('DB PASSWORD IS INVALID')
+        }
+        const validated: boolean = await compare(userPassword, dbPassword);
+        if (!validated) {
+            throw new Error('PASSWORD IS INVALID')
+        }
     }
-
-
 }
 
 export default userService;
