@@ -1,9 +1,13 @@
-import 'package:app/src/navigation/navigation.dart';
+import 'package:app/src/bloc/auth/auth_bloc.dart';
+import 'package:app/src/data/repository/auth_repository.dart';
 import 'package:app/src/ui/widget/menu_button.dart';
-import 'package:app/src/utils/screen_padding.dart';
 import 'package:app/src/utils/title_bar.dart';
-import 'package:dio/dio.dart';
+import 'package:app/src/utils/screen_padding.dart';
+import 'package:app/src/utils/snack_bar.dart';
+import 'package:app/src/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 import '../../utils/snack_bar.dart';
 
@@ -28,6 +32,13 @@ class _SigninState extends State<Signin> {
 
   @override
   Widget build(BuildContext context) {
+
+    AuthRepository authRepository = AuthRepository();
+    AuthViewModel authViewModel = AuthViewModel(
+      authBloc: BlocProvider.of<AuthBloc>(context),
+      authRepository: authRepository,
+    );
+
     return Scaffold(
       appBar: titleBar(),
       body: Container(
@@ -74,17 +85,16 @@ class _SigninState extends State<Signin> {
                           }
                           String id = _idController.text;
                           String password = _passwordController.text;
-                          await authBloc.signin(id, password);
-                          if (!authBloc.user) {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(failSnackbar('Sign In Fail'));
-                            return;
-                          }
-                          // navigation pushNamedAndRemove('/', (route) => false);
+                          bool result = await authViewModel.signin(id, password);
+                        if (result) {
                           ScaffoldMessenger.of(context)
-                              .showSnackBar(successSnackbar('Sign In Success'));
+                              .showSnackBar(successSnackbar('Sign in Success'));
                           Navigator.of(context)
-                              .pushNamedAndRemoveUntil('/', ((route) => false));
+                              .pushNamedAndRemoveUntil('/', (route) => false);
+                          return;
+                        }
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(failSnackbar('Sign in Failure'));
                         },
                         child: const Text('Sign In'),
                       ),

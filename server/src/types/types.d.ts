@@ -19,4 +19,8 @@ interface IStatusCode {
     information: string;
 }
 
-export { IUser, IConfig, IStatusCode }
+interface IErrorWithStatusCode extends Error {
+    statusCode : IStatusCode;
+}
+
+export { IUser, IConfig, IStatusCode, IErrorWithStatusCode }

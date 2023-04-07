@@ -1,10 +1,11 @@
-import 'package:app/src/bloc/auth_bloc.dart';
-import 'package:app/src/navigation/navigation.dart';
+import 'package:app/src/bloc/auth/auth_bloc.dart';
+import 'package:app/src/data/repository/auth_repository.dart';
+import 'package:app/src/utils/title_bar.dart';
 import 'package:app/src/utils/screen_padding.dart';
 import 'package:app/src/utils/snack_bar.dart';
-import 'package:app/src/utils/title_bar.dart';
-import 'package:dio/dio.dart';
+import 'package:app/src/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -27,6 +28,11 @@ class _SignupState extends State<Signup> {
 
   @override
   Widget build(BuildContext context) {
+    AuthRepository authRepository = AuthRepository();
+    AuthViewModel authViewModel = AuthViewModel(
+      authBloc: BlocProvider.of<AuthBloc>(context),
+      authRepository: authRepository,
+    );
     return Scaffold(
       appBar: titleBar(),
       body: Container(
@@ -83,15 +89,16 @@ class _SignupState extends State<Signup> {
                           if (_formaKey.currentState!.validate()) {
                             String id = _idController.text;
                             String password = _passwordController.text;
-                            Response? res = await authBloc.signup(id, password);
-                            if (null == res) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(failSnackbar('Sign Up Fail'));
-                            } else {
+                            bool result =
+                                await authViewModel.signup(id, password);
+                            if (result) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   successSnackbar('Sign Up Success'));
-                              Navigator.of(context).pop(context);
+                              Navigator.pop(context);
+                              return;
                             }
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(failSnackbar('Sign Up Fail'));
                           }
                         },
                         child: const Text('Sign Up'),

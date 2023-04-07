@@ -4,28 +4,8 @@ import 'package:app/src/ui/screens/signup.dart';
 import 'package:app/src/utils/title_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../bloc/auth_bloc.dart';
-
-late AuthBloc authBloc;
-
-class Navigation extends StatefulWidget {
+class Navigation extends StatelessWidget {
   const Navigation({super.key});
-
-  @override
-  State<Navigation> createState() => _NavigationState();
-}
-
-class _NavigationState extends State<Navigation> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    authBloc = AuthBloc();
-    // init
-    authBloc.init();
-    // auto
-    authBloc.auto();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,5 +30,6 @@ class _NavigationState extends State<Navigation> {
     );
   }
 }
-  //stateless 시작해서 statefull이 되지 않아도 문제가 없으면 less를 사용하는것이 무조건 좋음.
+
+//stateless 시작해서 statefull이 되지 않아도 문제가 없으면 less를 사용하는것이 무조건 좋음.
   //component will be down
