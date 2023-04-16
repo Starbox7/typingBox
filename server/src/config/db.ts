@@ -34,6 +34,7 @@ class DB {
       const [result] = await connection.execute(sql, values);
       return result;
     } catch (err: unknown) {
+      console.log(err);
       throw new DBError('DB Error');
     } finally {
       connection?.release();
