@@ -15,7 +15,7 @@ const Position = {
       const random: number = Math.floor(Math.random() * alphabet[level].length);
       return alphabet[level][random];
     }
-    throw new NotFoundError(`LEtTER IS NOT FOUND`);
+    throw new NotFoundError(`LETTER IS NOT FOUND`);
   },
   init: (level: number): Array<string> => {
     if (alphabet[level] && alphabet[level].length > 0) {

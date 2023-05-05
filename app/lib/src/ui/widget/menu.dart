@@ -1,4 +1,6 @@
+import 'package:app/src/ui/widget/level_button.dart';
 import 'package:app/src/ui/widget/member_menu.dart';
+import 'package:app/src/ui/widget/menu_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,24 +17,73 @@ class Menu extends StatelessWidget {
         Flexible(
           child: Center(
             child: ElevatedButton(
-              onPressed: () {},
-              child: const Text('자리 연습'),
+              onPressed: () {
+                showDialog<AlertDialog>(
+                  context: context,
+                  builder: (context) {
+                    return Dialog(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: const [
+                          LevelButton(
+                            menuName: 'level 1',
+                            routeName: '/position',
+                            arguments: 0,
+                          ),
+                          LevelButton(
+                            menuName: 'level 2',
+                            routeName: '/position',
+                            arguments: 1,
+                          ),
+                          LevelButton(
+                            menuName: 'level 3',
+                            routeName: '/position',
+                            arguments: 2,
+                          ),
+                          LevelButton(
+                            menuName: 'level 4',
+                            routeName: '/position',
+                            arguments: 3,
+                          ),
+                          LevelButton(
+                            menuName: 'level 5',
+                            routeName: '/position',
+                            arguments: 4,
+                          ),
+                          LevelButton(
+                            menuName: 'level 6',
+                            routeName: '/position',
+                            arguments: 5,
+                          ),
+                          LevelButton(
+                            menuName: 'level 7',
+                            routeName: '/position',
+                            arguments: 6,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
+              child: const Text('Position Practice'),
             ),
           ),
         ),
-        Flexible(
+        const Flexible(
           child: Center(
-            child: ElevatedButton(
-              onPressed: () {},
-              child: const Text('낱말 연습'),
+            child: MenuButton(
+              menuName: 'Word Practice',
+              routeName: '/word',
             ),
           ),
         ),
-        Flexible(
+        const Flexible(
           child: Center(
-            child: ElevatedButton(
-              onPressed: () {},
-              child: const Text('짧은 글 연습'),
+            child: MenuButton(
+              menuName: 'Short Sentence Practice',
+              routeName: '/short',
             ),
           ),
         ),
@@ -41,7 +92,7 @@ class Menu extends StatelessWidget {
           child: Center(
             child: ElevatedButton(
               onPressed: () => SystemNavigator.pop(),
-              child: const Text('종료'),
+              child: const Text('Exit'),
             ),
           ),
         ),

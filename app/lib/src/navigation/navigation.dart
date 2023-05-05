@@ -4,6 +4,9 @@ import 'package:app/src/ui/screens/signup.dart';
 import 'package:app/src/utils/title_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../ui/screens/position.dart';
+import '../ui/screens/word.dart';
+
 class Navigation extends StatelessWidget {
   const Navigation({super.key});
 
@@ -26,6 +29,8 @@ class Navigation extends StatelessWidget {
               appBar: titleBar(),
               body: const Placeholder(),
             ),
+        '/position': (context) => const Position(),
+        '/word': (context) => const Word(),
       },
     );
   }

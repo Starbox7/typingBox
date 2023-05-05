@@ -1,3 +1,6 @@
+import 'package:app/src/bloc/count/count_bloc.dart';
+import 'package:app/src/bloc/position/position_bloc.dart';
+import 'package:app/src/bloc/word/word_bloc.dart';
 import 'package:app/src/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -17,10 +20,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // BlocProvider<PositionBloc>(
-        //     create: (BuildContext context) => PositionBloc()),
+        BlocProvider<PositionBloc>(
+            create: (BuildContext context) => PositionBloc()),
         BlocProvider<AuthBloc>(create: (BuildContext context) => AuthBloc()),
-        // BlocProvider<WordBloc>(create: (BuildContext context) => WordBloc()),
+        BlocProvider<WordBloc>(create: (BuildContext context) => WordBloc()),
         // BlocProvider<ShortBloc>(create: (BuildContext context) => ShortBloc()),
         // BlocProvider<PositionBloc>(
         //     create: (BuildContext context) => PositionBloc()),
@@ -28,7 +31,7 @@ class MyApp extends StatelessWidget {
         //     create: (BuildContext context) => RecordBloc()),
         // BlocProvider<ChulseokBloc>(
         //     create: (BuildContext context) => ChulseokBloc()),
-        // BlocProvider<CountBloc>(create: (BuildContext context) => CountBloc()),
+        BlocProvider<CountBloc>(create: (BuildContext context) => CountBloc()),
       ],
       child: const Navigation(),
     );
