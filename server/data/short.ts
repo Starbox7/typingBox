@@ -420,7 +420,7 @@ const short = [
       name: short[i].name,
       short: short[i].short,
     };
-    await axios.post(`http://0.0.0.0:5000/shorts/`, data);
+    await axios.post(`http://0.0.0.0:5001/shorts/`, data);
     console.log(data);
   }
 })();

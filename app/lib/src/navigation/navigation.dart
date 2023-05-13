@@ -5,6 +5,7 @@ import 'package:app/src/utils/title_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/screens/position.dart';
+import '../ui/screens/short.dart';
 import '../ui/screens/word.dart';
 
 class Navigation extends StatelessWidget {
@@ -31,6 +32,7 @@ class Navigation extends StatelessWidget {
             ),
         '/position': (context) => const Position(),
         '/word': (context) => const Word(),
+        '/short': (context) => const Short(),
       },
     );
   }

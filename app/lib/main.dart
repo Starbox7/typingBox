@@ -1,5 +1,6 @@
 import 'package:app/src/bloc/count/count_bloc.dart';
 import 'package:app/src/bloc/position/position_bloc.dart';
+import 'package:app/src/bloc/short/short_bloc.dart';
 import 'package:app/src/bloc/word/word_bloc.dart';
 import 'package:app/src/navigation/navigation.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => PositionBloc()),
         BlocProvider<AuthBloc>(create: (BuildContext context) => AuthBloc()),
         BlocProvider<WordBloc>(create: (BuildContext context) => WordBloc()),
-        // BlocProvider<ShortBloc>(create: (BuildContext context) => ShortBloc()),
+        BlocProvider<ShortBloc>(create: (BuildContext context) => ShortBloc()),
         // BlocProvider<PositionBloc>(
         //     create: (BuildContext context) => PositionBloc()),
         // BlocProvider<RecordBloc>(
